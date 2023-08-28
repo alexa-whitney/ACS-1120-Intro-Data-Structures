@@ -1,4 +1,4 @@
-# ACS 1120: Intro to Data Structures
+# ACS 1120: Intro to Data Structures (completed as ACS 4999 Independent Study)
 
 ## Course Description
 
