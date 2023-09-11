@@ -6,7 +6,7 @@ from histogram import histogram, weighted_random_sentence  # Importing functions
 app = Flask(__name__)
 
 # Initialize histogram.
-source_path = '/Users/alexawhitney/Desktop/Dominican ACS Courses/Fall 2023/little_women.txt'
+source_path = 'little_women.txt'
 hist = histogram(source_path)  # Use the histogram function from histogram.py
 
 
