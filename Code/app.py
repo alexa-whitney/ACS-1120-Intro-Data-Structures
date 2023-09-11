@@ -1,17 +1,20 @@
 """Main script, uses other modules to generate sentences."""
 from flask import Flask
+from histogram import histogram, weighted_random_sentence  # Importing functions from histogram.py
 
 
 app = Flask(__name__)
 
-# TODO: Initialize your histogram, hash table, or markov chain here.
-# Any code placed here will run only once, when the server starts.
+# Initialize histogram.
+source_path = '/Users/alexawhitney/Desktop/Dominican ACS Courses/Fall 2023/little_women.txt'
+hist = histogram(source_path)  # Use the histogram function from histogram.py
 
 
 @app.route("/")
 def home():
     """Route that returns a web page containing the generated text."""
-    return "<p>TODO: Return a word here!</p>"
+    sentence = weighted_random_sentence(hist)
+    return f"<p>{sentence}</p>"
 
 
 if __name__ == "__main__":
