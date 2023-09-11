@@ -1,5 +1,5 @@
 """Main script, uses other modules to generate sentences."""
-from flask import Flask
+from flask import Flask, render_template
 from histogram import histogram, weighted_random_sentence  # Importing functions from histogram.py
 
 
@@ -14,7 +14,7 @@ hist = histogram(source_path)  # Use the histogram function from histogram.py
 def home():
     """Route that returns a web page containing the generated text."""
     sentence = weighted_random_sentence(hist)
-    return f"<p>{sentence}</p>"
+    return render_template("littlewomen.html", sentence=sentence)
 
 
 if __name__ == "__main__":
