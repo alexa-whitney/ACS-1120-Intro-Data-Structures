@@ -68,7 +68,7 @@ def weighted_random_sentence(hist):
 
 
 if __name__ == '__main__':
-    source_path = "/Users/alexawhitney/Desktop/Dominican ACS Courses/Fall 2023/little_women.txt"
+    source_path = "little_women.txt"
     hist = histogram(source_path)
 
     # # Testing pure randomness:
