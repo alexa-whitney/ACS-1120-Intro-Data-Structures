@@ -14,31 +14,48 @@ class Listogram(list):
         self.types = 0  # Count of distinct word types in this histogram
         self.tokens = 0  # Total count of all word tokens in this histogram
         # Count words in given list, if any
-        if word_list is not None:
+        if word_list is not None: 
             for word in word_list:
                 self.add_count(word)
 
     def add_count(self, word, count=1):
         """Increase frequency count of given word by given count amount."""
-        # TODO: Increase word frequency by count
+        index = self.index_of(word) 
+        if index is not None: 
+            self[index][1] += count
+        else:
+            self.append([word, count])
+            self.types += 1
+        self.tokens += count
+        
 
     def frequency(self, word):
         """Return frequency count of given word, or 0 if word is not found."""
-        # TODO: Retrieve word frequency count
+        index = self.index_of(word) # Find index of word in list of entries
+        if index is not None: # Check if word entry was found in list of entries
+            return self[index][1] # Return word count from word entry found
+        else: # Otherwise, word entry for word was not found in list of entries
+            return 0 # So, return zero instead
 
     def __contains__(self, word):
         """Return boolean indicating if given word is in this histogram."""
-        # TODO: Check if word is in this histogram
+        return self.index_of(word) is not None 
 
     def index_of(self, target):
         """Return the index of entry containing given target word if found in
         this histogram, or None if target word is not found."""
-        # TODO: Implement linear search to find index of entry with target word
+        for index, entry in enumerate(self): # Loop through list of entries
+            if entry[0] == target: # Check if word entry matches target word
+                return index
+        return None
 
     def sample(self):
         """Return a word from this histogram, randomly sampled by weighting
         each word's probability of being chosen by its observed frequency."""
-        # TODO: Randomly choose a word based on its frequency in this histogram
+        weighted_words_list = [] # Create a list of words repeated by frequency
+        for word, frequency in self: # Loop through list of word entries
+            weighted_words_list.extend([word] * frequency) # Append word num. times = freq.
+        return random.choice(weighted_words_list) # Return a random word
 
 
 def print_histogram(word_list):
