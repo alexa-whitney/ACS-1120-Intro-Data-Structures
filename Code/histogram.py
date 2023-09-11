@@ -62,7 +62,9 @@ def weighted_random_sentence(hist):
         selected_word = random.choice(weighted_words_list)
         sentence.append(selected_word)
 
-    return ' '.join(sentence)
+    # Capitalize the first word and add a period at the end
+    sentence[0] = sentence[0].capitalize()
+    return ' '.join(sentence) + '.'
 
 
 if __name__ == '__main__':
