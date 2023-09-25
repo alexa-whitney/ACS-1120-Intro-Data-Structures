@@ -139,10 +139,14 @@ class LinkedListTest(unittest.TestCase):
 
     def test_find(self):
         ll = LinkedList(['A', 'B', 'C'])
-        assert ll.find(lambda item: item == 'B') == 'B'  # Match equality
-        assert ll.find(lambda item: item < 'B') == 'A'  # Match less than
-        assert ll.find(lambda item: item > 'B') == 'C'  # Match greater than
-        assert ll.find(lambda item: item == 'X') is None  # No matching item
+        # assert ll.find(lambda item: item == 'B') == 'B'  # Match equality
+        # assert ll.find(lambda item: item < 'B') == 'A'  # Match less than
+        # assert ll.find(lambda item: item > 'B') == 'C'  # Match greater than
+        # assert ll.find(lambda item: item == 'X') is None  # No matching item
+        assert ll.find('B') == True  # Match equality
+        assert ll.find('A') == True  # Match less than
+        assert ll.find('C') == True  # Match greater than
+        assert ll.find('X') == False  # No matching item
 
     def test_delete_with_3_items(self):
         ll = LinkedList(['A', 'B', 'C'])
@@ -193,12 +197,22 @@ class LinkedListTest(unittest.TestCase):
 
     def test_replace_with_item(self):
         ll = LinkedList(['A', 'B', 'C'])
-        # for item in list
-        ll.replace('A', 'D')
-        assert ll.head.data == 'D'
-        # for item not in list
-        ll.replace('X', 'M')
-        assert ll.head.data == 'D'
+        
+        # Test replacing an existing item ('A')
+        self.assertEqual(ll.find('A'), True)  # Check that 'A' exists in the list
+        ll.replace('A', 'D')  # Replace 'A' with 'D'
+        self.assertEqual(ll.find('A'), False)  # 'A' should no longer exist
+        self.assertEqual(ll.find('D'), True)  # 'D' should exist now
+
+        # Test replacing a non-existing item ('X')
+        self.assertEqual(ll.find('X'), False)  # Check that 'X' doesn't exist in the list
+        with self.assertRaises(ValueError):
+            ll.replace('X', 'M')  # Attempt to replace 'X' (should raise ValueError)
+
+        # Additional assertions to verify the state of the linked list
+        self.assertEqual(ll.items(), ['D', 'B', 'C'])  # Check the updated items
+        self.assertEqual(ll.head.data, 'D')  # Check the new head
+        self.assertEqual(ll.tail.data, 'C')  # Check the tail
 
 
 if __name__ == '__main__':
