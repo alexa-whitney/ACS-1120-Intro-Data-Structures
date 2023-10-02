@@ -1,19 +1,28 @@
 """Main script, uses other modules to generate sentences."""
 from flask import Flask, render_template
-from histogram import histogram, weighted_random_sentence  # Importing functions from histogram.py
-
+import string
+import random
+from higher_order_markov import HigherOrderMarkovChain, generate_random_sentence
 
 app = Flask(__name__)
 
-# Initialize histogram.
+# Initialize HigherOrderMarkovChain.
 source_path = 'little_women.txt'
-hist = histogram(source_path)  # Use the histogram function from histogram.py
+with open(source_path, 'r') as file:
+    source_text = file.read()
+    translator = str.maketrans("", "", string.punctuation + "“”‘’")
+    word_list = source_text.translate(translator).split()
+
+chain = HigherOrderMarkovChain()
+chain.learn(word_list)
 
 
 @app.route("/")
 def home():
     """Route that returns a web page containing the generated text."""
-    sentence = weighted_random_sentence(hist)
+    start_index = random.randint(0, len(word_list) - 2)
+    start_words = (word_list[start_index], word_list[start_index + 1])
+    sentence = ' '.join(chain.random_walk(start_words, 18))
     return render_template("littlewomen.html", sentence=sentence)
 
 
