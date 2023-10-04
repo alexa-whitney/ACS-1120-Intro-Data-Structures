@@ -22,8 +22,9 @@ def home():
     """Route that returns a web page containing the generated text."""
     start_index = random.randint(0, len(word_list) - 2)
     start_words = (word_list[start_index], word_list[start_index + 1])
-    sentence = ' '.join(chain.random_walk(start_words, 18))
+    sentence = generate_random_sentence(chain, start_words)
     return render_template("littlewomen.html", sentence=sentence)
+
 
 
 if __name__ == "__main__":
