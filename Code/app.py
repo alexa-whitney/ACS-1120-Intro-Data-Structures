@@ -20,10 +20,10 @@ chain.learn(word_list)
 @app.route("/")
 def home():
     """Route that returns a web page containing the generated text."""
-    start_index = random.randint(0, len(word_list) - 2)
-    start_words = (word_list[start_index], word_list[start_index + 1])
-    sentence = generate_random_sentence(chain, start_words)
-    return render_template("littlewomen.html", sentence=sentence)
+    start_index = random.randint(0, len(word_list) - 2) # Get a random start index
+    start_words = (word_list[start_index], word_list[start_index + 1]) # Get the start words
+    sentence = generate_random_sentence(chain, start_words) # Generate a random sentence
+    return render_template("littlewomen.html", sentence=sentence) # Return the web page
 
 
 
